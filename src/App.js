@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from './Button';
 import Quote from './Quote';
+import Button from './Button';
 class App extends Component {
 
   constructor() {
     super()
     this.state = { 
       count: 0,
-      quoteArray: [],
+      jokeArray: [],
       
       
     }
@@ -25,18 +25,18 @@ class App extends Component {
   })
   .then(res => res.json())
   .then(res => {
-    //console.log(res)
-    if(this.state.quoteArray.length <= 14){
+    console.log(res)
+    if(this.state.jokeArray.length <= 9){
       this.setState(prevState => ({
-      quoteArray: [...prevState.quoteArray, res.joke]
+      jokeArray: [...prevState.jokeArray, res.quoteText]
     }))
-    }else{this.state.quoteArray.shift();} 
-    // console.log(this.state.quoteArray)
+    }else{this.state.jokeArray.shift();} 
+    // console.log(this.state.jokeArray)
   })   
 }
 
 nextButton (){
-  if(this.state.count < 14){
+  if(this.state.count < 9){
   this.setState({count: this.state.count + 1})
   }else {
     console.log(this.state.count)
@@ -50,37 +50,27 @@ previousButton (){
     console.log(this.state.count)
   }
 } 
-  // this.setState(prevState=> ({
-  //   jokeArray: [...prevState.jokeArray]})
-  // let i = this.state.jokeArray.indexOf(this.state.jokeArray)
-  // if(i > 0, i < this.state.jokeArray.length)
-  // this.setState({
-  //    index: this.state.jokeArray[i + 1]
-  // })
-
 
 
   render() {
   
     const count = this.state.count
-    const quote = this.state.quoteArray[count] 
+    const joke = this.state.jokeArray[count] 
     return (
       <div className="App">
         <header className="App-header">
           
-          <h1 className="App-title">Dad Jokes</h1>
+          <h1 className="App-title">Inspirational Quotes</h1>
         </header>
         <h1>
-          <Quote quotes={quote}/>
+          <Quote jokes={joke}/>
          </h1>
-          {/* <Button previous={this.previousButton}/> */}
-          {/* <Button buttonMethod={this.thisButton} label={'Previous Joke'}/> */}
           <div className="rowOfButtons" >
-          <Button thisButton={this.previousButton} label={'Prev Quote'}/>
-          <Button thisButton={this.thisButton} label={'New Quote'}/>
-          <Button thisButton={this.nextButton}label={'Next Quote'}/>
-          {/* <Button next={this.nextButton}/> */}
+          <Button thisButton={this.previousButton} label={'Next'}/>
+          <Button className="words" thisButton={this.thisButton} label={'New Quote'}/>
+          <Button thisButton={this.nextButton}label={'Prev'}/>
           </div>
+         
 
       </div>
     );
